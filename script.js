@@ -13,9 +13,6 @@ const displayUserScore = document.querySelector(".user-score-num");
 const displayCPUScore = document.querySelector(".cpu-score-num");
 const results = document.querySelector(".results");
 
-
-
-// console.log(humanChoice, computerChoice);
 rock.addEventListener("click", function() {
     choiceCheck = "rock";
     playGame(choiceCheck);
@@ -51,47 +48,38 @@ function playRound(hChoice, cChoice) {
     if(hChoice === "rock" && cChoice === "rock") {
         flag = 2;
         results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. It's a tie!`;
-        console.log("Tie!");
     }
     else if(hChoice === "rock" && cChoice === "paper") {
         flag = 1;
         results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. Computer Wins!`;
-        console.log("Computer had ", cChoice, ", Computer wins.");
     }
     else if(hChoice === "rock" && cChoice === "scissors") {
         flag = 0;
         results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. You Win!`;
-        console.log("Computer had ", cChoice, ", Human wins.");
     }
     else if(hChoice === "paper" && cChoice === "rock") {
         flag = 0;
         results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. You Win!`;
-        console.log("Computer had ", cChoice, ", Human wins.");
     }
     else if(hChoice === "paper" && cChoice === "paper") {
         flag = 2;
         results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. It's a tie!`;
-        console.log("Tie!");
     }
     else if(hChoice === "paper" && cChoice === "scissors") {
         flag = 1;
         results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. Computer Wins!`;
-        console.log("Computer had ", cChoice, ", Computer wins.");
     }
     else if(hChoice === "scissors" && cChoice === "rock") {
         flag = 1;
         results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. Computer Wins!`;
-        console.log("Computer had ", cChoice, ", Computer wins.");
     }
     else if(hChoice === "scissors" && cChoice === "paper") {
         flag = 0;
         results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. You Win!`;
-        console.log("Computer had ", cChoice, ", Human wins.");
     }
     else if(hChoice === "scissors" && cChoice === "scissors") {
         flag = 2;
         results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. It's a tie!`;
-        console.log("Tie!");
     }
 
     return flag;
@@ -102,7 +90,6 @@ function playGame(playerChoice) {
     let flag = 0;
     if(scoreFlag === 0) {
         random = computerChoice[getComputerChoice()];
-        console.log(playerChoice, computerChoice);
         flag = playRound(playerChoice, random);
         if(flag === 0) {
             humanScore++;
