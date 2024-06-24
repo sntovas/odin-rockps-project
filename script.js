@@ -1,24 +1,45 @@
 let humanChoice = ["rock", "paper", "scissors"];
 let computerChoice = ["rock", "paper", "scissors"];
+let choiceCheck = "";
+let humanScore = 0;
+let computerScore = 0;
+let scoreFlag = 0;
+let playAgain = 0;
+const rock = document.querySelector(".rock-btn");
+const paper = document.querySelector(".paper-btn");
+const scissors = document.querySelector(".scissors-btn");
+const playBtn = document.querySelector(".play-btn");
+const displayUserScore = document.querySelector(".user-score-num");
+const displayCPUScore = document.querySelector(".cpu-score-num");
+const results = document.querySelector(".results");
 
 
 
+// console.log(humanChoice, computerChoice);
+rock.addEventListener("click", function() {
+    choiceCheck = "rock";
+    playGame(choiceCheck);
+});
 
+paper.addEventListener("click", function() {
+    choiceCheck = "paper";
+    playGame(choiceCheck);
+});
 
-console.log(humanChoice, computerChoice);
+scissors.addEventListener("click", function() {
+    choiceCheck = "scissors";
+    playGame(choiceCheck);
+});
 
-/* while(true) {
-    if(humanChoice === NaN || humanChoice !== 0 || humanChoice!== 1 || humanChoice !== 2) {
-        humanChoice = parseInt(prompt("You must enter a valid number(0, 1, or 2). Rock(0), Paper(1), Scissors(2)"));
-    }
-    break;
-} */
+playBtn.addEventListener("click", function() {
+    humanScore = 0;
+    computerScore = 0;
+    scoreFlag = 0;
+    displayUserScore.innerText = `0`;
+    displayCPUScore.innerText = `0`;
+    results.innerText = `Test your skill!`;
+});
 
-playGame();
-
-function getHumanChoice() {
-    return prompt("Rock(0), Paper(1), Scissors(2)").toLowerCase();
-}
 
 function getComputerChoice() {
     return Math.floor(Math.random() * 3);
@@ -29,74 +50,76 @@ function playRound(hChoice, cChoice) {
 
     if(hChoice === "rock" && cChoice === "rock") {
         flag = 2;
+        results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. It's a tie!`;
         console.log("Tie!");
     }
     else if(hChoice === "rock" && cChoice === "paper") {
         flag = 1;
+        results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. Computer Wins!`;
         console.log("Computer had ", cChoice, ", Computer wins.");
     }
     else if(hChoice === "rock" && cChoice === "scissors") {
         flag = 0;
+        results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. You Win!`;
         console.log("Computer had ", cChoice, ", Human wins.");
     }
     else if(hChoice === "paper" && cChoice === "rock") {
         flag = 0;
+        results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. You Win!`;
         console.log("Computer had ", cChoice, ", Human wins.");
     }
     else if(hChoice === "paper" && cChoice === "paper") {
         flag = 2;
+        results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. It's a tie!`;
         console.log("Tie!");
     }
     else if(hChoice === "paper" && cChoice === "scissors") {
         flag = 1;
+        results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. Computer Wins!`;
         console.log("Computer had ", cChoice, ", Computer wins.");
     }
     else if(hChoice === "scissors" && cChoice === "rock") {
         flag = 1;
+        results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. Computer Wins!`;
         console.log("Computer had ", cChoice, ", Computer wins.");
     }
     else if(hChoice === "scissors" && cChoice === "paper") {
         flag = 0;
+        results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. You Win!`;
         console.log("Computer had ", cChoice, ", Human wins.");
     }
     else if(hChoice === "scissors" && cChoice === "scissors") {
         flag = 2;
+        results.innerText = `Computer had: ${cChoice.charAt(0).toUpperCase() + cChoice.slice(1)}. It's a tie!`;
         console.log("Tie!");
     }
 
     return flag;
 }
 
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-    let playerChoice = "";
+function playGame(playerChoice) {
     let random = "";
     let flag = 0;
-    for(let i = 0; i < 5; i++) {
-        playerChoice = getHumanChoice();
-        while(true) {
-            if(playerChoice === humanChoice[0] || playerChoice === humanChoice[1] || playerChoice === humanChoice[2]) {               
-                break;
-            }
-            alert("Please input a valid option.");
-            playerChoice = getHumanChoice();
-        }
+    if(scoreFlag === 0) {
         random = computerChoice[getComputerChoice()];
-        console.log(humanChoice, computerChoice);
+        console.log(playerChoice, computerChoice);
         flag = playRound(playerChoice, random);
         if(flag === 0) {
             humanScore++;
-            console.log("Score: ", humanScore, " - ", computerScore);
+            displayUserScore.innerText = `${humanScore}`;
+            
         }
         else if(flag == 1) {
             computerScore++;
-            console.log("Score: ", humanScore, " - ", computerScore);
+            displayCPUScore.innerText = `${computerScore}`;
         }
-        else {
-            humanScore++;
-            computerScore++;
-            console.log("Score: ", humanScore, " - ", computerScore);
-        }
+    }
+    if(humanScore === 5) {
+        scoreFlag = 1;
+        results.innerText = `Congrats! You Won!`;
+    }
+    else if(computerScore === 5) {
+        results.innerText = `Sad! Computer Wins!`;
+        scoreFlag = 1;
     }
 }
